@@ -29,19 +29,34 @@ public class BricksManager : MonoBehaviour
 
     private GameObject _bricksContainer;
     public Sprite[] Sprites;
-    public Brick BrickPrefab; 
-    
+    public Brick BrickPrefab;
+    public static event System.Action<object> OnLevelCompleted;
+
+
     public int[,] LevelMap { get; private set; }
     public List<Brick> RemainingBricks { get; set; }
     public int InitialBricksCount { get; set; }
 
+    public void LoadNextLevel()
+    {
+        this.LevelMap = GenerateLevelMap();
+    }
 
     private void Start()
     {
         _bricksContainer = new GameObject("BricksContainer");
-        RemainingBricks = new List<Brick>();
-        LevelMap = GenerateLevelMap();
+        LoadNextLevel();
         GenerateBricks();
+        Brick.OnBrickDestruction += OnBrickDestruction;
+    }
+
+    private void OnBrickDestruction(Brick obj)
+    {
+        RemainingBricks.Remove(obj);
+        if (RemainingBricks.Count == 0)
+        {
+            OnLevelCompleted?.Invoke(null);
+        }
     }
 
     private int[,] GenerateLevelMap()
@@ -56,8 +71,9 @@ public class BricksManager : MonoBehaviour
         }
         return result;
     }
-    private void GenerateBricks()
+    public void GenerateBricks()
     {
+        RemainingBricks = new List<Brick>();
         float currentSpawnX = initialBrickSpawnPositionX;
         float currentSpawnY = initialBrickSpawnPositionY;
         float zShift = 0;
