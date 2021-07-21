@@ -6,9 +6,9 @@ using static UnityEngine.ParticleSystem;
 public class Brick : MonoBehaviour
 {
     public static event Action<Brick> OnBrickDestruction;
-    public int HitPoints = 1;
+    public int CurrentHitPoints = 1;
     public ParticleSystem DestroyEffect;
-
+    public int Dificulty { get; set; }
     private SpriteRenderer _spriteRenderer;
 
     private void Awake()
@@ -22,8 +22,8 @@ public class Brick : MonoBehaviour
     }
     private void ApplyCollisionLogic(Ball ball)
     {
-        this.HitPoints--;
-        if (this.HitPoints <= 0)
+        this.CurrentHitPoints--;
+        if (this.CurrentHitPoints <= 0)
         {
             OnBrickDestruction?.Invoke(this);
             SpawnDestroyEffect();
@@ -32,7 +32,7 @@ public class Brick : MonoBehaviour
         }
         else
         {
-            this._spriteRenderer.sprite = BricksManager.Instance.Sprites[this.HitPoints - 1];
+            this._spriteRenderer.sprite = BricksManager.Instance.Sprites[this.CurrentHitPoints - 1];
         }
     }
     private void SpawnDestroyEffect()
@@ -48,6 +48,7 @@ public class Brick : MonoBehaviour
     {
         this.transform.SetParent(containeTtransform);
         _spriteRenderer.sprite = sprite;
-        HitPoints = hitPoints;
+        CurrentHitPoints = hitPoints;
+        Dificulty = hitPoints;
     }
 }

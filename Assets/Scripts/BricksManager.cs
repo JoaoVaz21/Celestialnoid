@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,8 +31,7 @@ public class BricksManager : MonoBehaviour
     private GameObject _bricksContainer;
     public Sprite[] Sprites;
     public Brick BrickPrefab;
-    public static event System.Action<object> OnLevelCompleted;
-
+    public static event Action OnLevelCompleted;
 
     public int[,] LevelMap { get; private set; }
     public List<Brick> RemainingBricks { get; set; }
@@ -55,7 +55,7 @@ public class BricksManager : MonoBehaviour
         RemainingBricks.Remove(obj);
         if (RemainingBricks.Count == 0)
         {
-            OnLevelCompleted?.Invoke(null);
+            OnLevelCompleted?.Invoke();
         }
     }
 
@@ -66,7 +66,7 @@ public class BricksManager : MonoBehaviour
         {
             for (var j = 0; j < MaxCollumnNumber; j++)
             {
-                result[i, j] = Random.Range(0,4);
+                result[i, j] = UnityEngine.Random.Range(0,4);
             }
         }
         return result;

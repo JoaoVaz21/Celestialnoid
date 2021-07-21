@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     public int AvailableLives = 3;
     public GameObject GameOverScreen;
     public GameObject VictoryScreen;
+    public event Action<int> OnLifeLost;
 
     private void Start()
     {
@@ -37,7 +39,7 @@ public class GameManager : MonoBehaviour
         BricksManager.OnLevelCompleted += OnLevelCompleted;
     }
 
-    private void OnLevelCompleted(object obj)
+    private void OnLevelCompleted()
     {
         BallsManager.Instance.ResetBalls();
         GameManager.Instance.IsGameStarted = false;
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                OnLifeLost?.Invoke(this.Lives);
                 BallsManager.Instance.ResetBalls();
                 IsGameStarted = false;
             }
