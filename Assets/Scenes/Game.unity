@@ -454,13 +454,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb80225b196a43a469f913ae66269d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentMaxRowNumber: 1
+  CurrentMaxRowNumber: 4
   Sprites:
-  - {fileID: 21300000, guid: 07b609050593c6a41b8913a047700179, type: 3}
-  - {fileID: 21300000, guid: 11f259a2be342474fba366195da67f6f, type: 3}
-  - {fileID: 21300000, guid: 1000470585592584db8e17114cb7d42f, type: 3}
-  - {fileID: 21300000, guid: 714babbc08ce69944bf043d4e5f50ea9, type: 3}
-  - {fileID: 21300000, guid: 052c514764f83ef4bba0d8d2b78a0fc6, type: 3}
+  - {fileID: 21300000, guid: b31849b8ab70d2b489c3d8622d9274ec, type: 3}
+  - {fileID: 21300000, guid: 863447cd86ccdec4fb552de7fecc0d2d, type: 3}
+  - {fileID: 21300000, guid: 1aa18d8ca48ebfd4eb7ef91554d8691d, type: 3}
+  - {fileID: 21300000, guid: 863447cd86ccdec4fb552de7fecc0d2d, type: 3}
+  - {fileID: 21300000, guid: 677cc93c89636d54185472b97878bd3f, type: 3}
   BrickPrefab: {fileID: 4782725821365663110, guid: 57effe04503284a4fbaa1a7e93ad31bd, type: 3}
 --- !u!1 &519420028
 GameObject:
@@ -602,12 +602,12 @@ SpriteRenderer:
   m_SortingLayerID: -653539351
   m_SortingLayer: -4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4f1830dd3008fb94695360bed722bcd1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bcc73b71310ee2748b1d8f7c9a9d5091, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.625, y: 10}
+  m_Size: {x: 5.4, y: 9.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -725,7 +725,7 @@ SpriteRenderer:
   m_SortingLayer: -3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5fd06a0aaf1e0614aa260b1254750b94, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6963346, g: 0.5511926, b: 0.735849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
