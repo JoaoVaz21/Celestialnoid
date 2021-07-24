@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4782725821365663111
+--- !u!1 &1938010294992172263
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4782725821365663107}
-  - component: {fileID: 4782725821365663104}
-  - component: {fileID: 4782725821365663105}
-  - component: {fileID: 4782725821365663110}
+  - component: {fileID: 1938010294992172259}
+  - component: {fileID: 1938010294992172256}
+  - component: {fileID: 1938010294992172257}
+  - component: {fileID: 1938010294992172262}
   m_Layer: 0
-  m_Name: Brick
+  m_Name: Brick_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4782725821365663107
+--- !u!4 &1938010294992172259
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4782725821365663111}
+  m_GameObject: {fileID: 1938010294992172263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4782725821365663104
+--- !u!212 &1938010294992172256
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4782725821365663111}
+  m_GameObject: {fileID: 1938010294992172263}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -73,54 +73,60 @@ SpriteRenderer:
   m_SortingLayerID: -1930658907
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 07b609050593c6a41b8913a047700179, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fed7a5617308ee3478801755a293d346, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.41666666, y: 0.45833334}
+  m_Size: {x: 0.53125, y: 0.26041666}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &4782725821365663105
+--- !u!61 &1938010294992172257
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4782725821365663111}
+  m_GameObject: {fileID: 1938010294992172263}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0015295744, y: 0.0012998879}
+  m_Offset: {x: 0.54809153, y: -0.13154191}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.53125, y: 0.26041666}
-    newSize: {x: 0.41666666, y: 0.45833334}
+    pivot: {x: 0, y: 1}
+    oldSize: {x: 1.09375, y: 0.26041666}
+    newSize: {x: 0.53125, y: 0.26041666}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5196483, y: 0.28086942}
+  m_Size: {x: 1.1, y: 0.26}
   m_EdgeRadius: 0
---- !u!114 &4782725821365663110
+--- !u!114 &1938010294992172262
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4782725821365663111}
+  m_GameObject: {fileID: 1938010294992172263}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f1165fa9503180438efc78a9c75adf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitPoints: 3
+  CurrentHitPoints: 1
   DestroyEffect: {fileID: 4982789143180437648, guid: 88c01947907a30646bc5661b323cbaed, type: 3}
+  Sprites:
+  - {fileID: 21300000, guid: fed7a5617308ee3478801755a293d346, type: 3}
+  - {fileID: 21300000, guid: 1760a0ea9dc75544d81845c4a2517663, type: 3}
+  - {fileID: 21300000, guid: 66c2d98745fc40f46a06c1d59d76f678, type: 3}
+  - {fileID: 21300000, guid: 6e894e037a20e92478852b136724666b, type: 3}
+  - {fileID: 21300000, guid: b6cfa6b46e5853842bde4a40fee1e7e9, type: 3}

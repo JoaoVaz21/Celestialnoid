@@ -21,19 +21,19 @@ public class BricksManager : MonoBehaviour
         }
     }
     #endregion
-    public const int MaxCollumnNumber = 7;
+    public const int MaxCollumnNumber = 13;
     public int CurrentMaxRowNumber = 4;
-    private const float initialBrickSpawnPositionX = -2.12f;
+    private const float initialBrickSpawnPositionX = -2.4f;
     private const float initialBrickSpawnPositionY = 3.325f;
-    private const float _xShiftAmount = 0.700f;
+    private const float _xShiftAmount = 0.130f;
     private const float _yShiftAmount = 0.365f;
 
     private GameObject _bricksContainer;
-    public Sprite[] Sprites;
-    public Brick BrickPrefab;
+    public Brick[] BrickPrefabs;
+    private float[] _bricksXValue; 
     public static event Action OnLevelCompleted;
 
-    public int[,] LevelMap { get; private set; }
+    public List<List<int>> LevelMap { get; private set; }
     public List<Brick> RemainingBricks { get; set; }
     public int InitialBricksCount { get; set; }
 
@@ -45,9 +45,16 @@ public class BricksManager : MonoBehaviour
     private void Start()
     {
         _bricksContainer = new GameObject("BricksContainer");
+        _bricksXValue = new float[BrickPrefabs.Length];
+        for (var i = 0; i < BrickPrefabs.Length; i++)
+        {
+            _bricksXValue[i] = BrickPrefabs[i].GetComponent<BoxCollider2D>().size.x;
+        }
+
         LoadNextLevel();
         GenerateBricks();
         Brick.OnBrickDestruction += OnBrickDestruction;
+    
     }
 
     private void OnBrickDestruction(Brick obj)
@@ -59,15 +66,22 @@ public class BricksManager : MonoBehaviour
         }
     }
 
-    private int[,] GenerateLevelMap()
+    private List<List<int>> GenerateLevelMap()
     {
-        var result = new int[CurrentMaxRowNumber, MaxCollumnNumber];
+        var result = new List<List<int>>();
         for (var i =0;i< CurrentMaxRowNumber; i++)
         {
-            for (var j = 0; j < MaxCollumnNumber; j++)
+            var currentSize = 0;
+            var maxType = BrickPrefabs.Length+1;
+            var currentRow = new List<int>();
+            while (currentSize < MaxCollumnNumber)
             {
-                result[i, j] = UnityEngine.Random.Range(0,4);
+                maxType = Mathf.Min(maxType, MaxCollumnNumber - currentSize);
+                var brickType = UnityEngine.Random.Range(0, maxType);
+                currentRow.Add(brickType);
+                currentSize += brickType == 0 ? 1 : brickType;
             }
+            result.Add(currentRow);
         }
         return result;
     }
@@ -77,26 +91,25 @@ public class BricksManager : MonoBehaviour
         float currentSpawnX = initialBrickSpawnPositionX;
         float currentSpawnY = initialBrickSpawnPositionY;
         float zShift = 0;
-        for(var row = 0; row < CurrentMaxRowNumber; row++)
+        foreach(var row in LevelMap)
         {
-            for(var col = 0; col<MaxCollumnNumber; col++)
+            foreach(var brickType in row)
             {
-                int brickType = LevelMap[row, col];
                 if (brickType > 0)
                 {
-                    Brick newBrick = Instantiate(BrickPrefab,new Vector3(currentSpawnX,currentSpawnY,0.0f-zShift),Quaternion.identity) as Brick;
-                    newBrick.Init(_bricksContainer.transform, this.Sprites[brickType - 1],brickType);
+                    Brick newBrick = Instantiate(BrickPrefabs[brickType - 1], new Vector3(currentSpawnX, currentSpawnY, 0.0f - zShift), Quaternion.identity) as Brick;
+                    var hitPoints = UnityEngine.Random.Range(1, newBrick.Sprites.Length);
+                    newBrick.Init(_bricksContainer.transform, hitPoints);
                     this.RemainingBricks.Add(newBrick);
                     zShift += 0.0001f;
                 }
-                currentSpawnX += _xShiftAmount;
-                if(col+1 == MaxCollumnNumber)
-                {
-                    currentSpawnX = initialBrickSpawnPositionX;
-                }
+                currentSpawnX += brickType == 0 ? _bricksXValue[0] + _xShiftAmount : _bricksXValue[brickType - 1] + _xShiftAmount;
             }
             currentSpawnY -= _yShiftAmount;
+            currentSpawnX = initialBrickSpawnPositionX;
+
         }
+
         InitialBricksCount = RemainingBricks.Count;
     }
 }

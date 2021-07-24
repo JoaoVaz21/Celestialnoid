@@ -455,13 +455,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentMaxRowNumber: 4
-  Sprites:
-  - {fileID: 21300000, guid: b31849b8ab70d2b489c3d8622d9274ec, type: 3}
-  - {fileID: 21300000, guid: 863447cd86ccdec4fb552de7fecc0d2d, type: 3}
-  - {fileID: 21300000, guid: 1aa18d8ca48ebfd4eb7ef91554d8691d, type: 3}
-  - {fileID: 21300000, guid: 863447cd86ccdec4fb552de7fecc0d2d, type: 3}
-  - {fileID: 21300000, guid: 677cc93c89636d54185472b97878bd3f, type: 3}
-  BrickPrefab: {fileID: 4782725821365663110, guid: 57effe04503284a4fbaa1a7e93ad31bd, type: 3}
+  BrickPrefabs:
+  - {fileID: 1138949604576940031, guid: 69b36313c0f47f040b7fedfdc5f44598, type: 3}
+  - {fileID: 4782725821365663110, guid: 57effe04503284a4fbaa1a7e93ad31bd, type: 3}
+  - {fileID: 1938010294992172262, guid: 90ffd628a89bf184ea0c53866961a168, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
