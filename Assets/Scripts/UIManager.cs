@@ -35,6 +35,7 @@ public class UIManager : MonoBehaviour
     }
     private void OnDisable()
     {
+        GameManager.Instance.OnLifeLost -= OnLifeLost;
         Brick.OnBrickDestruction -= OnBrickDestruction;
     }
 }

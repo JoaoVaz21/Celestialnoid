@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
         else
         {
             _instance = this;
+            MaxBrickHitPoints = 1;
         }
     }
     #endregion
@@ -26,10 +27,12 @@ public class GameManager : MonoBehaviour
     public bool IsGameStarted { get; set; }
     public bool IsOnMenu { get; set; }
     public int Lives { get; set; }
+    public int MaxBrickHitPoints { get; set; }
     public int AvailableLives = 3;
     public GameObject GameOverScreen;
     public GameObject VictoryScreen;
     public event Action<int> OnLifeLost;
+    private int _levelCount = 1;
 
     private void Start()
     {
@@ -42,11 +45,26 @@ public class GameManager : MonoBehaviour
     private void OnLevelCompleted()
     {
         BallsManager.Instance.ResetBalls();
+        UpdateDificulty();
         GameManager.Instance.IsGameStarted = false;
         GameManager.Instance.IsOnMenu = true;
         BricksManager.Instance.LoadNextLevel();
         VictoryScreen.SetActive(true);
 
+    }
+
+    private void UpdateDificulty()
+    {
+        _levelCount++;
+       
+                if (_levelCount % 2 == 0 && MaxBrickHitPoints<5)
+                {
+                    MaxBrickHitPoints++;
+                }
+                if(_levelCount%3==0 && BricksManager.Instance.CurrentMaxRowNumber < 12)
+                {
+                    BricksManager.Instance.CurrentMaxRowNumber++;
+                }
     }
     public void NextLevel()
     {
@@ -79,6 +97,7 @@ public class GameManager : MonoBehaviour
     }
     private void OnDisable()
     {
+        BricksManager.OnLevelCompleted -= OnLevelCompleted;
         Ball.OnBallDeath -= OnBallDeath;
     }
 }

@@ -27,7 +27,6 @@ public class BricksManager : MonoBehaviour
     private const float initialBrickSpawnPositionY = 3.325f;
     private const float _xShiftAmount = 0.130f;
     private const float _yShiftAmount = 0.365f;
-
     private GameObject _bricksContainer;
     public Brick[] BrickPrefabs;
     private float[] _bricksXValue; 
@@ -91,14 +90,15 @@ public class BricksManager : MonoBehaviour
         float currentSpawnX = initialBrickSpawnPositionX;
         float currentSpawnY = initialBrickSpawnPositionY;
         float zShift = 0;
-        foreach(var row in LevelMap)
+        int maxHitPoints = GameManager.Instance.MaxBrickHitPoints + 1;
+        foreach (var row in LevelMap)
         {
             foreach(var brickType in row)
             {
                 if (brickType > 0)
                 {
                     Brick newBrick = Instantiate(BrickPrefabs[brickType - 1], new Vector3(currentSpawnX, currentSpawnY, 0.0f - zShift), Quaternion.identity) as Brick;
-                    var hitPoints = UnityEngine.Random.Range(1, newBrick.Sprites.Length);
+                    var hitPoints = UnityEngine.Random.Range(1,maxHitPoints);
                     newBrick.Init(_bricksContainer.transform, hitPoints);
                     this.RemainingBricks.Add(newBrick);
                     zShift += 0.0001f;
@@ -111,5 +111,10 @@ public class BricksManager : MonoBehaviour
         }
 
         InitialBricksCount = RemainingBricks.Count;
+    }
+    private void OnDisable()
+    {
+        Brick.OnBrickDestruction -= OnBrickDestruction;
+
     }
 }

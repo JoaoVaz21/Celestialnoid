@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 37648257}
   - component: {fileID: 37648256}
   m_Layer: 5
-  m_Name: GameOverText
+  m_Name: VictoryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 122377411}
   - component: {fileID: 122377410}
   m_Layer: 5
-  m_Name: VictoryScreen
+  m_Name: VictoryScreenPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,7 +440,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1892723855}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &214498011
 MonoBehaviour:
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb80225b196a43a469f913ae66269d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentMaxRowNumber: 4
+  CurrentMaxRowNumber: 1
   BrickPrefabs:
   - {fileID: 1138949604576940031, guid: 69b36313c0f47f040b7fedfdc5f44598, type: 3}
   - {fileID: 4782725821365663110, guid: 57effe04503284a4fbaa1a7e93ad31bd, type: 3}
@@ -745,7 +745,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00052022934, y: -0.024855256}
+  m_Offset: {x: -0.0031151772, y: -0.004095316}
   m_SpriteTilingProperty:
     border: {x: 0.114583336, y: 0, z: 0.10416667, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -756,7 +756,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0212729, y: 0.20820832}
+  m_Size: {x: 0.99532294, y: 0.16668844}
   m_EdgeRadius: 0
 --- !u!212 &638871880
 SpriteRenderer:
@@ -1120,7 +1120,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1892723855}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &929777294
 MonoBehaviour:
@@ -1250,7 +1250,7 @@ GameObject:
   - component: {fileID: 1161270715}
   - component: {fileID: 1161270714}
   m_Layer: 5
-  m_Name: RestartButton
+  m_Name: NextLevelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1611,7 +1611,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1892723855}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1406276799
 MonoBehaviour:
@@ -2108,11 +2108,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878515449}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.18942343, y: -2.9690094, z: -0.117408425}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1892723855}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1878515451
 MonoBehaviour:
@@ -2156,7 +2156,6 @@ Transform:
   m_LocalPosition: {x: 0.18942343, y: -2.9690094, z: -0.117408425}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1878515450}
   - {fileID: 929777293}
   - {fileID: 214498010}
   - {fileID: 1406276798}
