@@ -10,6 +10,7 @@ public class BallsManager : MonoBehaviour
     #region Singleton
     private static BallsManager _instance;
     public static BallsManager Instance => _instance;
+    
     // Start is called before the first frame update
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class BallsManager : MonoBehaviour
     private Ball _ballPrefab;
     private Ball _initialBall;
     private Rigidbody2D _initialBallRb;
+    private const int MAXBALLCOUNT = 20;
     #endregion
 
     #region Properties
@@ -38,6 +40,19 @@ public class BallsManager : MonoBehaviour
     private void Start()
     {
         InitBall();
+    }
+    public void SpawnBalls(Vector3 position, int count)
+    {
+        for (var i = 0; i < count; i++)
+        {
+            if (Balls.Count >= MAXBALLCOUNT) return;
+            Ball spawnedBall = Instantiate(_ballPrefab, position, Quaternion.identity);
+            Rigidbody2D rigidbody = spawnedBall.GetComponent<Rigidbody2D>();
+            rigidbody.isKinematic = false;
+            var xSpeed = i % 2 == 0 ? InitialBallSpeed : -InitialBallSpeed;
+            rigidbody.AddForce(new Vector2(xSpeed, InitialBallSpeed));
+            Balls.Add(spawnedBall);
+        }
     }
 
     private void Update()

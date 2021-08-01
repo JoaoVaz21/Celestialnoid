@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using static UnityEngine.ParticleSystem;
+using Assets.Scripts;
+
 public class Brick : MonoBehaviour
 {
     public static event Action<Brick> OnBrickDestruction;
@@ -27,7 +29,7 @@ public class Brick : MonoBehaviour
         if (this.CurrentHitPoints <= 0)
         {
             OnBrickDestruction?.Invoke(this);
-            SpawnDestroyEffect();
+            OnBrickDestroy();
             Destroy(this.gameObject);
 
         }
@@ -36,6 +38,35 @@ public class Brick : MonoBehaviour
             this._spriteRenderer.sprite = Sprites[this.CurrentHitPoints - 1];
         }
     }
+
+    private void OnBrickDestroy()
+    {
+        float buffSpawnChance = UnityEngine.Random.Range(0, 100f);
+        float debuffSpawnChance = UnityEngine.Random.Range(0, 100f);
+        bool alreadySpawned = false;
+        if(buffSpawnChance <= CollectablesManager.Instance.BuffChance)
+        {
+            alreadySpawned = true;
+            SpawnCollectable(true);
+        }
+        if(debuffSpawnChance<=CollectablesManager.Instance.DebuffChance && !alreadySpawned)
+        {
+            SpawnCollectable(false);
+        }
+
+        SpawnDestroyEffect();
+
+    }
+
+    private void SpawnCollectable(bool isBuff)
+    {
+        List<Collectable> collection = isBuff ? CollectablesManager.Instance.AvailableBuffs : CollectablesManager.Instance.AvailableDebuffs;
+        int buffIndex = UnityEngine.Random.Range(0, collection.Count);
+        var prefab = collection[buffIndex];
+        Instantiate(prefab, this.transform.position, Quaternion.identity);
+      
+    }
+
     private void SpawnDestroyEffect()
     {
         Vector3 brickPos = gameObject.transform.position;
