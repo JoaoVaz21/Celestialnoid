@@ -8,7 +8,7 @@ namespace Assets.Scripts
     {
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.tag == "Paddle")
+            if(collision.tag == "Paddle" && GameManager.Instance.IsGameStarted)
             {
                 ApplyEffect();
             }

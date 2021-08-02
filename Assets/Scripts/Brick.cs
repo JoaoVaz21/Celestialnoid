@@ -13,29 +13,56 @@ public class Brick : MonoBehaviour
     public Sprite[] Sprites;
     public int Dificulty { get; set; }
     private SpriteRenderer _spriteRenderer;
-
+    private BoxCollider2D _boxCollider2D;
     private void Awake()
     {
         this._spriteRenderer = this.GetComponent<SpriteRenderer>();
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        Ball.OnLightningBallEnable += OnLightningBalllEnable;
+        Ball.OnLightningBallDisable += OnLightningBalllDisable;
+
+
     }
+
+    private void OnLightningBalllDisable(Ball obj)
+    {
+        if (this != null)
+        {
+            _boxCollider2D.isTrigger = false;
+        }
+    }
+
+    private void OnLightningBalllEnable(Ball obj)
+    {
+        if (this != null)
+        {
+            _boxCollider2D.isTrigger = true;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Ball ball = collision.gameObject.GetComponent<Ball>();
         ApplyCollisionLogic(ball);
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Ball ball = collision.gameObject.GetComponent<Ball>();
+        if(ball!=null) ApplyCollisionLogic(ball);
+    }
     private void ApplyCollisionLogic(Ball ball)
     {
-        this.CurrentHitPoints--;
-        if (this.CurrentHitPoints <= 0)
+        CurrentHitPoints--;
+        if (CurrentHitPoints <= 0)
         {
-            OnBrickDestruction?.Invoke(this);
             OnBrickDestroy();
-            Destroy(this.gameObject);
+            OnBrickDestruction?.Invoke(this);
+            Destroy(gameObject);
 
         }
         else
         {
-            this._spriteRenderer.sprite = Sprites[this.CurrentHitPoints - 1];
+            _spriteRenderer.sprite = Sprites[CurrentHitPoints - 1];
         }
     }
 
@@ -64,7 +91,7 @@ public class Brick : MonoBehaviour
         int buffIndex = UnityEngine.Random.Range(0, collection.Count);
         var prefab = collection[buffIndex];
         Instantiate(prefab, this.transform.position, Quaternion.identity);
-      
+
     }
 
     private void SpawnDestroyEffect()
@@ -83,5 +110,10 @@ public class Brick : MonoBehaviour
         _spriteRenderer.sprite = Sprites[hitPoints-1];
         CurrentHitPoints = hitPoints;
         Dificulty = hitPoints;
+    }
+    private void OnDisable()
+    {
+        Ball.OnLightningBallDisable -= OnLightningBalllDisable;
+        Ball.OnLightningBallEnable -= OnLightningBalllEnable;
     }
 }

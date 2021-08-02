@@ -44,15 +44,16 @@ public class GameManager : MonoBehaviour
 
     private void OnLevelCompleted()
     {
-        BallsManager.Instance.ResetBalls();
-        UpdateDificulty();
         GameManager.Instance.IsGameStarted = false;
         GameManager.Instance.IsOnMenu = true;
+        CollectablesManager.Instance.DestroyCollectables();
+        BallsManager.Instance.ResetBalls();
+        UpdateDificulty();
         BricksManager.Instance.LoadNextLevel();
         VictoryScreen.SetActive(true);
 
     }
-
+  
     private void UpdateDificulty()
     {
         _levelCount++;

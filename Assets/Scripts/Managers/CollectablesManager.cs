@@ -29,4 +29,13 @@ public class CollectablesManager : MonoBehaviour
     public float BuffChance = 50;
     [Range(0, 100)]
     public float DebuffChance = 50;
+
+    public void DestroyCollectables()
+    {
+        var collectables = GameObject.FindGameObjectsWithTag("Collectable");
+        foreach (var collectable in collectables)
+        {
+            Destroy(collectable);
+        }
+    }
 }

@@ -30,7 +30,7 @@ public class BallsManager : MonoBehaviour
     private Ball _ballPrefab;
     private Ball _initialBall;
     private Rigidbody2D _initialBallRb;
-    private const int MAXBALLCOUNT = 20;
+    private const int MAXBALLCOUNT = 10;
     #endregion
 
     #region Properties
@@ -41,16 +41,20 @@ public class BallsManager : MonoBehaviour
     {
         InitBall();
     }
-    public void SpawnBalls(Vector3 position, int count)
+    public void SpawnBalls(Vector3 position, int count, bool isLightningBall)
     {
         for (var i = 0; i < count; i++)
         {
             if (Balls.Count >= MAXBALLCOUNT) return;
-            Ball spawnedBall = Instantiate(_ballPrefab, position, Quaternion.identity);
+            Ball spawnedBall = Instantiate(_ballPrefab, position, Quaternion.identity) as Ball;
+            if (isLightningBall)
+            {
+                spawnedBall.StartLightningBall();
+            }
             Rigidbody2D rigidbody = spawnedBall.GetComponent<Rigidbody2D>();
             rigidbody.isKinematic = false;
             var xSpeed = i % 2 == 0 ? InitialBallSpeed : -InitialBallSpeed;
-            rigidbody.AddForce(new Vector2(xSpeed, InitialBallSpeed));
+            rigidbody.AddForce(new Vector2(xSpeed/2, InitialBallSpeed/2));
             Balls.Add(spawnedBall);
         }
     }
@@ -62,7 +66,7 @@ public class BallsManager : MonoBehaviour
             Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
             Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + .27f, paddlePosition.z);
             _initialBall.transform.position = ballPosition;
-            if (Input.GetMouseButtonDown(0) && !GameManager.Instance.IsOnMenu)
+            if (Input.GetKeyDown(KeyCode.Space) && !GameManager.Instance.IsOnMenu)
             {
                 _initialBallRb.isKinematic = false;
                 _initialBallRb.AddForce(new Vector2(0, InitialBallSpeed));
