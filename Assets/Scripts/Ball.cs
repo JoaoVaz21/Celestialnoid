@@ -6,6 +6,7 @@ public class Ball : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
     private float _lightningBallDuration = 4;
+    private Rigidbody2D _rigidbody2D;
     public ParticleSystem LightningBallEffect;
     public bool IsLightningBall;
     public static event Action<Ball> OnBallDeath;
@@ -19,9 +20,14 @@ public class Ball : MonoBehaviour
     }
     private void Awake()
     {
-        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();   
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();  
+        _rigidbody2D = GetComponent<Rigidbody2D>();
     }
-    internal void StartLightningBall()
+    public void MultiplySpeed(float factor)
+    {
+        _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x * factor, _rigidbody2D.velocity.y * factor);
+    }
+    public void StartLightningBall()
     {
         if (!IsLightningBall)
         {
@@ -50,4 +56,6 @@ public class Ball : MonoBehaviour
 
         }
     }
+
+
 }

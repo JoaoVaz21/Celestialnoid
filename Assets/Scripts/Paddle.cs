@@ -58,18 +58,18 @@ public class Paddle : MonoBehaviour
         _rigidbody2D.velocity = Vector2.right * _input * Speed;
     }
 
-    public void StartWidthAnimation(float newWidth)
+    public void StartWidthAnimation(float newWidth, bool isReseting = false)
     {
-        if (!PaddleIsTransforming)
+        if (!PaddleIsTransforming || isReseting)
         {
-            StartCoroutine(AnimatePaddleWidth(newWidth));
+            StartCoroutine(AnimatePaddleWidth(newWidth, !isReseting));
         }
     }
 
-    private IEnumerator AnimatePaddleWidth(float newWidth)
+    private IEnumerator AnimatePaddleWidth(float newWidth, bool shouldReset)
     {
             PaddleIsTransforming = true;
-            StartCoroutine(ResetPaddleWidthAfterTime(ExtendShrinkDuration));
+            if(shouldReset) StartCoroutine(ResetPaddleWidthAfterTime(ExtendShrinkDuration));
             if (newWidth > _spriteRenderer.size.x)
             {
                 float currentWidth = _spriteRenderer.size.x;
@@ -92,13 +92,15 @@ public class Paddle : MonoBehaviour
                     yield return null;
                 }
             }
-            PaddleIsTransforming = false;
+        _boxCollider2D.size = new Vector2(newWidth, DefaultPaddleHeight);
     }
 
     private IEnumerator ResetPaddleWidthAfterTime(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        StartWidthAnimation(DefaultPaddleWidth);
+
+        StartWidthAnimation(DefaultPaddleWidth, true);
+        PaddleIsTransforming = false;
 
     }
 

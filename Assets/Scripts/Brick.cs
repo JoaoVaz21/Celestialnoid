@@ -14,6 +14,7 @@ public class Brick : MonoBehaviour
     public int Dificulty { get; set; }
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider2D;
+
     private void Awake()
     {
         this._spriteRenderer = this.GetComponent<SpriteRenderer>();
@@ -53,7 +54,7 @@ public class Brick : MonoBehaviour
     private void ApplyCollisionLogic(Ball ball)
     {
         CurrentHitPoints--;
-        if (CurrentHitPoints <= 0)
+        if (CurrentHitPoints <= 0 || ball.IsLightningBall)
         {
             OnBrickDestroy();
             OnBrickDestruction?.Invoke(this);
@@ -87,17 +88,19 @@ public class Brick : MonoBehaviour
 
     private void SpawnCollectable(bool isBuff)
     {
+        Vector3 brickPos = gameObject.transform.position;
+        var brickSize =_boxCollider2D.size;
         List<Collectable> collection = isBuff ? CollectablesManager.Instance.AvailableBuffs : CollectablesManager.Instance.AvailableDebuffs;
         int buffIndex = UnityEngine.Random.Range(0, collection.Count);
         var prefab = collection[buffIndex];
-        Instantiate(prefab, this.transform.position, Quaternion.identity);
+        Instantiate(prefab, new Vector3(brickPos.x + brickSize.x / 2, brickPos.y - brickSize.y, brickPos.z - 0.2f), Quaternion.identity);
 
     }
 
     private void SpawnDestroyEffect()
     {
         Vector3 brickPos = gameObject.transform.position;
-        var brickSize = GetComponent<BoxCollider2D>().size;
+        var brickSize = _boxCollider2D.size;
         Vector3 spawnPosition = new Vector3(brickPos.x+brickSize.x/2, brickPos.y-brickSize.y, brickPos.z - 0.2f);
         GameObject effect = Instantiate(DestroyEffect.gameObject, spawnPosition, Quaternion.identity);
         MainModule mm = effect.GetComponent<ParticleSystem>().main;

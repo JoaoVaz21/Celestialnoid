@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         Brick.OnBrickDestruction += OnBrickDestruction;
-        GameManager.Instance.OnLifeLost += OnLifeLost;
+        GameManager.Instance.OnLifeChanged += OnLifeLost;
         UpdateScoreText(0);
         OnLifeLost(GameManager.Instance.AvailableLives);
     }
@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        GameManager.Instance.OnLifeLost -= OnLifeLost;
+        GameManager.Instance.OnLifeChanged -= OnLifeLost;
         Brick.OnBrickDestruction -= OnBrickDestruction;
     }
 }

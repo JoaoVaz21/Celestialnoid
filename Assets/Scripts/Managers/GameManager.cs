@@ -25,13 +25,12 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public bool IsGameStarted { get; set; }
-    public bool IsOnMenu { get; set; }
     public int Lives { get; set; }
     public int MaxBrickHitPoints { get; set; }
     public int AvailableLives = 3;
     public GameObject GameOverScreen;
     public GameObject VictoryScreen;
-    public event Action<int> OnLifeLost;
+    public event Action<int> OnLifeChanged;
     private int _levelCount = 1;
 
     private void Start()
@@ -45,7 +44,7 @@ public class GameManager : MonoBehaviour
     private void OnLevelCompleted()
     {
         GameManager.Instance.IsGameStarted = false;
-        GameManager.Instance.IsOnMenu = true;
+        Time.timeScale = 0;
         CollectablesManager.Instance.DestroyCollectables();
         BallsManager.Instance.ResetBalls();
         UpdateDificulty();
@@ -66,17 +65,29 @@ public class GameManager : MonoBehaviour
                 {
                     BricksManager.Instance.CurrentMaxRowNumber++;
                 }
+        if (_levelCount % 4 == 0)
+        {
+            BallsManager.Instance.InitialBallSpeed += 30;
+        }
     }
     public void NextLevel()
     {
         BricksManager.Instance.GenerateBricks();
         VictoryScreen.SetActive(false);
-        GameManager.Instance.IsOnMenu = false;
+        Time.timeScale = 1;
 
     }
+
+
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+    }
+    public void AddLife()
+    {
+        Lives++;
+        OnLifeChanged?.Invoke(this.Lives);
     }
     private void OnBallDeath(Ball obj)
     {
@@ -86,16 +97,17 @@ public class GameManager : MonoBehaviour
             if (this.Lives < 1)
             {
                 GameOverScreen.SetActive(true);
-                GameManager.Instance.IsOnMenu = true;
+                Time.timeScale = 0;
             }
             else
             {
-                OnLifeLost?.Invoke(this.Lives);
+                OnLifeChanged?.Invoke(this.Lives);
                 BallsManager.Instance.ResetBalls();
                 IsGameStarted = false;
             }
         }
     }
+    
     private void OnDisable()
     {
         BricksManager.OnLevelCompleted -= OnLevelCompleted;
