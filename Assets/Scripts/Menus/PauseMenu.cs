@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : OptionsMenu
 {
     public GameObject Menu;
     // Start is called before the first frame update
@@ -15,5 +16,9 @@ public class PauseMenu : MonoBehaviour
     {
         Menu.SetActive(false);
         Time.timeScale = 1;
+    }
+    public void Home()
+    {
+        SceneManager.LoadScene(0);
     }
 }

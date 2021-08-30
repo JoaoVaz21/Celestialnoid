@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
                 }
         if (_levelCount % 4 == 0)
         {
-            BallsManager.Instance.InitialBallSpeed += 30;
+            BallsManager.Instance.InitialBallSpeed +=2;
         }
     }
     public void NextLevel()

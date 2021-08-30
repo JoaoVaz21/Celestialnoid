@@ -44,7 +44,7 @@ public class BallsManager : MonoBehaviour
     #endregion
     private void Start()
     {
-        InitialBallSpeed = 250;
+        InitialBallSpeed = 5;
         InitBall();
     }
     public void SpawnBalls(Vector3 position, int count, bool isLightningBall)

@@ -8,6 +8,7 @@ TagManager:
   - Paddle
   - DeathCollider
   - Collectable
+  - wall
   layers:
   - Default
   - TransparentFX

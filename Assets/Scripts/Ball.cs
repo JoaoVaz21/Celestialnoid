@@ -5,13 +5,16 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
-    private float _lightningBallDuration = 4;
+    private const float LightningBallDuration = 4.0f;
     private Rigidbody2D _rigidbody2D;
+    private const float SmoothingFactor = 1.0f;
     public ParticleSystem LightningBallEffect;
     public bool IsLightningBall;
+    public float currentYSpeed;
     public static event Action<Ball> OnBallDeath;
     public static event Action<Ball> OnLightningBallEnable;
     public static event Action<Ball> OnLightningBallDisable;
+
 
     public void Die()
     {
@@ -20,12 +23,14 @@ public class Ball : MonoBehaviour
     }
     private void Awake()
     {
+        currentYSpeed = BallsManager.Instance.InitialBallSpeed;
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();  
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
     public void MultiplySpeed(float factor)
     {
-        _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x * factor, _rigidbody2D.velocity.y * factor);
+        currentYSpeed = BallsManager.Instance.InitialBallSpeed* factor;
+        _rigidbody2D.AddForce ( new Vector2(_rigidbody2D.velocity.x * factor, currentYSpeed));
     }
     public void StartLightningBall()
     {
@@ -34,7 +39,7 @@ public class Ball : MonoBehaviour
             IsLightningBall = true;
             _spriteRenderer.enabled = false;
             LightningBallEffect.gameObject.SetActive(true);
-            StartCoroutine(StopLightningBallAfterTime(_lightningBallDuration));
+            StartCoroutine(StopLightningBallAfterTime(LightningBallDuration));
             OnLightningBallEnable?.Invoke(this);
         }
     }
@@ -56,6 +61,18 @@ public class Ball : MonoBehaviour
 
         }
     }
-
-
+    private void Update()
+    {
+        var cvel = _rigidbody2D.velocity;
+        var tvel = cvel.normalized * currentYSpeed;
+        _rigidbody2D.velocity = tvel;
+    }
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "wall")
+        {
+            
+             _rigidbody2D.AddForce(coll.GetContact(0).normal * currentYSpeed);
+        }
+    }
 }

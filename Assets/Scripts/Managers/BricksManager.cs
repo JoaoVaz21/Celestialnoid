@@ -25,7 +25,7 @@ public class BricksManager : MonoBehaviour
     public int CurrentMaxRowNumber = 4;
     private const float initialBrickSpawnPositionX = -2.4f;
     private const float initialBrickSpawnPositionY = 3.325f;
-    private const float _xShiftAmount = 0.130f;
+    private const float _xShiftAmount = 0.132f;
     private const float _yShiftAmount = 0.365f;
     private GameObject _bricksContainer;
     public Brick[] BrickPrefabs;

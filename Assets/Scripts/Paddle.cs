@@ -109,18 +109,18 @@ public class Paddle : MonoBehaviour
         if(coll.gameObject.tag == "Ball")
         {
             Rigidbody2D ballRb = coll.gameObject.GetComponent<Rigidbody2D>();
+            Ball ball = coll.gameObject.GetComponent<Ball>();
             Vector3 hitPoint = coll.contacts[0].point;
             Vector3 paddleCenter = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, 0);
-            ballRb.velocity = Vector2.zero;
-
             float difference = paddleCenter.x - hitPoint.x;
+            ballRb.velocity = Vector2.zero;
             if (hitPoint.x < paddleCenter.x)
             {
-                ballRb.AddForce(new Vector2(-(Mathf.Abs(difference * 200)), BallsManager.Instance.InitialBallSpeed));
+                ballRb.AddForce(new Vector2((-Mathf.Abs(difference * 5)), BallsManager.Instance.InitialBallSpeed));
             }
             else
             {
-                ballRb.AddForce(new Vector2((Mathf.Abs(difference * 200)), BallsManager.Instance.InitialBallSpeed));
+                ballRb.AddForce(new Vector2((Mathf.Abs(difference * 5)), BallsManager.Instance.InitialBallSpeed));
 
             }
         }
