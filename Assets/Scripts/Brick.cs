@@ -57,6 +57,7 @@ public class Brick : MonoBehaviour
         if (CurrentHitPoints <= 0 || ball.IsLightningBall)
         {
             OnBrickDestroy();
+            AudioSource.PlayClipAtPoint(SFXManager.Instance.SfxSounds[2], gameObject.transform.position);
             OnBrickDestruction?.Invoke(this);
             Destroy(gameObject);
 
@@ -66,6 +67,7 @@ public class Brick : MonoBehaviour
             _spriteRenderer.sprite = Sprites[CurrentHitPoints - 1];
         }
     }
+   
 
     private void OnBrickDestroy()
     {

@@ -629,6 +629,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6308564814909907088, guid: 7f26ae84ffed8004787ddd6b968060d0, type: 3}
+        m_TargetAssemblyTypeName: SFXManager, Assembly-CSharp
+        m_MethodName: PlaySFX
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &350633186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,6 +968,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6308564814909907088, guid: 7f26ae84ffed8004787ddd6b968060d0, type: 3}
+        m_TargetAssemblyTypeName: SFXManager, Assembly-CSharp
+        m_MethodName: PlaySFX
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &542103800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1275,7 +1299,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0031151772, y: -0.004095316}
+  m_Offset: {x: -0.0031151772, y: -0.027003884}
   m_SpriteTilingProperty:
     border: {x: 0.10416667, y: 0, z: 0.10416667, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1286,7 +1310,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.99532294, y: 0.16668844}
+  m_Size: {x: 0.99532294, y: 0.16159749}
   m_EdgeRadius: 0
 --- !u!212 &638871880
 SpriteRenderer:
@@ -2234,6 +2258,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
         m_MethodName: Home
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6308564814909907088, guid: 7f26ae84ffed8004787ddd6b968060d0, type: 3}
+        m_TargetAssemblyTypeName: SFXManager, Assembly-CSharp
+        m_MethodName: PlaySFX
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3945,6 +3981,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fafba09b8a996e44857344672112e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicSlider: {fileID: 704705828}
+  sfxSlider: {fileID: 1431689752}
   Menu: {fileID: 1895932336}
 --- !u!114 &1895932339
 MonoBehaviour:

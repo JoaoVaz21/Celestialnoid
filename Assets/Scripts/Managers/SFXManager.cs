@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicManager : MonoBehaviour
+public class SFXManager : MonoBehaviour
 {
     #region Singleton
-    private static MusicManager _instance;
-    public static MusicManager Instance => _instance;
+    private static SFXManager _instance;
+    public static SFXManager Instance => _instance;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -28,32 +28,30 @@ public class MusicManager : MonoBehaviour
     /// The component that plays the music
     /// </summary>
     private AudioSource source;
-    [SerializeField]
-    private  AudioClip[] levelsMusic;
+    public AudioClip[] SfxSounds;
 
 
     protected virtual void Start()
     {
         // If the game starts in a menu scene, play the appropriate music
-        source.volume = PlayerPrefs.GetFloat("VolumeValue", 1);
-        PlayMusic(0);
+        source.volume = PlayerPrefs.GetFloat("SFXValue", 1);
     }
 
 
-    public static void PlayMusic( int index)
+    public static void PlaySFX(int index)
     {
         if (_instance != null)
         {
             if (_instance.source != null)
             {
                 _instance.source.Stop();
-                _instance.source.clip = _instance.levelsMusic[index];
+                _instance.source.clip = _instance.SfxSounds[index];
                 _instance.source.Play();
             }
         }
         else
         {
-            Debug.LogError("Unavailable MusicPlayer component");
+            Debug.LogError("Unavailable SFXPlayer component");
         }
     }
     public void UpdateVolume(float volume)

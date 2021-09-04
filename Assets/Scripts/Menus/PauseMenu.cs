@@ -20,5 +20,7 @@ public class PauseMenu : OptionsMenu
     public void Home()
     {
         SceneManager.LoadScene(0);
+        MusicManager.PlayMusic(0);
+        Time.timeScale = 0;
     }
 }

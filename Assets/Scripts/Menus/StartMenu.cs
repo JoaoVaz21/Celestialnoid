@@ -9,6 +9,8 @@ public class StartMenu : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene(1);
+        MusicManager.PlayMusic(1);
+
     }
     public void QuitGame()
     {

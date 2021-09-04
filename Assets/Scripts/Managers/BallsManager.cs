@@ -118,7 +118,7 @@ public class BallsManager : MonoBehaviour
     private IEnumerator ResetBallsSpeedAfterTime(float seconds,float factor)
     {
         yield return new WaitForSeconds(seconds);
-        UpdateBallsSpeed(1/ factor, true);
+        UpdateBallsSpeed(1, true);
         SpeedChanged = false;
 
     }

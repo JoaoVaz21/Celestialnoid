@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
     {
         _levelCount++;
        
-                if (_levelCount % 2 == 0 && MaxBrickHitPoints<5)
+                if (_levelCount==2 || _levelCount % 4 == 0 && MaxBrickHitPoints<5)
                 {
                     MaxBrickHitPoints++;
                 }
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
                 {
                     BricksManager.Instance.CurrentMaxRowNumber++;
                 }
-        if (_levelCount % 4 == 0)
+        if (_levelCount % 5 == 0)
         {
             BallsManager.Instance.InitialBallSpeed +=2;
         }

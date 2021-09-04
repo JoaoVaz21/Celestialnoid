@@ -69,10 +69,14 @@ public class Ball : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D coll)
     {
+ 
+            SFXManager.PlaySFX(1);
+        
         if (coll.gameObject.tag == "wall")
         {
             
              _rigidbody2D.AddForce(coll.GetContact(0).normal * currentYSpeed);
         }
+
     }
 }
