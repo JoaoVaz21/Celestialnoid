@@ -9,6 +9,7 @@ public class PauseMenu : OptionsMenu
     // Start is called before the first frame update
     public void Pause(bool pause)
     {
+        GameManager.Instance.IsGamePaused = true;
         Menu.SetActive(true);
         Time.timeScale = 0;
     }
@@ -16,6 +17,8 @@ public class PauseMenu : OptionsMenu
     {
         Menu.SetActive(false);
         Time.timeScale = 1;
+        GameManager.Instance.UnpauseGame();
+
     }
     public void Home()
     {

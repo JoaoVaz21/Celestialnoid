@@ -26,9 +26,10 @@ public class Paddle : MonoBehaviour
     private Camera _mainCamera;
     private float _paddleInitialY;
     private SpriteRenderer _spriteRenderer;
-    private BoxCollider2D _boxCollider2D;
+    private CapsuleCollider2D _collider2D;
     private Rigidbody2D _rigidbody2D;
     private float _input;
+    private float _deltaX;
     private const float Speed = 5f;
     private const float DefaultPaddleWidthInPixels = 200;
     private const float DefaultLeftClamp = 135;
@@ -37,6 +38,7 @@ public class Paddle : MonoBehaviour
     private const float DefaultPaddleWidth = 1;
     private const float DefaultPaddleHeight = 0.28f;
 
+
     public bool PaddleIsTransforming { get; set; }
     // Start is called before the first frame update
     void Start()
@@ -44,18 +46,41 @@ public class Paddle : MonoBehaviour
         _mainCamera = FindObjectOfType<Camera>();
         _paddleInitialY = this.transform.position.y;
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _boxCollider2D = GetComponent<BoxCollider2D>();
+        _collider2D = GetComponent<CapsuleCollider2D>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        _input = Input.GetAxisRaw("Horizontal");
+
+        if (Application.platform == RuntimePlatform.Android && Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            Vector2 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            switch (touch.phase)
+            {
+
+                case TouchPhase.Began:
+                    _deltaX = touchPos.x - transform.position.x;
+                    break;
+                case TouchPhase.Moved:
+                    _rigidbody2D.MovePosition(new Vector2(touchPos.x-_deltaX, _rigidbody2D.position.y));
+                    break;
+            }
+        }
+        else
+        {
+              _input = Input.GetAxisRaw("Horizontal");
+
+
+        }
+
     }
     private void FixedUpdate()
     {
-        _rigidbody2D.velocity = Vector2.right * _input * Speed;
+        if(Application.platform != RuntimePlatform.Android)
+            _rigidbody2D.velocity = Vector2.right * _input * Speed;
     }
 
     public void StartWidthAnimation(float newWidth, bool isReseting = false)
@@ -77,7 +102,7 @@ public class Paddle : MonoBehaviour
                 {
                     currentWidth += Time.deltaTime * 2;
                     _spriteRenderer.size = new Vector2(currentWidth, DefaultPaddleHeight);
-                    _boxCollider2D.size = new Vector2(currentWidth, DefaultPaddleHeight);
+                    _collider2D.size = new Vector2(currentWidth, DefaultPaddleHeight);
                     yield return null;
                 }
             }
@@ -88,11 +113,11 @@ public class Paddle : MonoBehaviour
                 {
                     currentWidth -= Time.deltaTime * 2;
                     _spriteRenderer.size = new Vector2(currentWidth, DefaultPaddleHeight);
-                    _boxCollider2D.size = new Vector2(currentWidth, DefaultPaddleHeight);
+                    _collider2D.size = new Vector2(currentWidth, DefaultPaddleHeight);
                     yield return null;
                 }
             }
-        _boxCollider2D.size = new Vector2(newWidth, DefaultPaddleHeight);
+        _collider2D.size = new Vector2(newWidth, DefaultPaddleHeight);
     }
 
     private IEnumerator ResetPaddleWidthAfterTime(float seconds)

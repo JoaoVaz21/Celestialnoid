@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BallsManager : MonoBehaviour
 {
@@ -47,6 +48,9 @@ public class BallsManager : MonoBehaviour
         InitialBallSpeed = 5;
         InitBall();
     }
+
+
+
     public void SpawnBalls(Vector3 position, int count, bool isLightningBall)
     {
         for (var i = 0; i < count; i++)
@@ -72,7 +76,7 @@ public class BallsManager : MonoBehaviour
             Vector3 paddlePosition = Paddle.Instance.gameObject.transform.position;
             Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + .27f, paddlePosition.z);
             _initialBall.transform.position = ballPosition;
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || (!GameManager.Instance.IsGamePaused && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && !EventSystem.current.IsPointerOverGameObject()))
             {
                 _initialBallRb.isKinematic = false;
                 _initialBallRb.AddForce(new Vector2(0, InitialBallSpeed));
@@ -123,6 +127,7 @@ public class BallsManager : MonoBehaviour
 
     }
 
- }
+
+}
     
 

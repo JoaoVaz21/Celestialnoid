@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public bool IsGameStarted { get; set; }
+    public bool IsGamePaused { get; set; }
     public int Lives { get; set; }
     public int MaxBrickHitPoints { get; set; }
     public int AvailableLives = 3;
@@ -32,11 +33,11 @@ public class GameManager : MonoBehaviour
     public GameObject VictoryScreen;
     public event Action<int> OnLifeChanged;
     private int _levelCount = 1;
+    private bool _isGamePaused;
 
     private void Start()
     {
         this.Lives = AvailableLives;
-        Screen.SetResolution(540, 960, false);
         Ball.OnBallDeath += OnBallDeath;
         BricksManager.OnLevelCompleted += OnLevelCompleted;
     }
@@ -44,11 +45,13 @@ public class GameManager : MonoBehaviour
     private void OnLevelCompleted()
     {
         GameManager.Instance.IsGameStarted = false;
+        GameManager.Instance.IsGamePaused = true;
         Time.timeScale = 0;
         CollectablesManager.Instance.DestroyCollectables();
         BallsManager.Instance.ResetBalls();
         UpdateDificulty();
         BricksManager.Instance.LoadNextLevel();
+        IsGamePaused = true;
         VictoryScreen.SetActive(true);
 
     }
@@ -70,14 +73,25 @@ public class GameManager : MonoBehaviour
             BallsManager.Instance.InitialBallSpeed +=2;
         }
     }
+
     public void NextLevel()
     {
         BricksManager.Instance.GenerateBricks();
         VictoryScreen.SetActive(false);
         Time.timeScale = 1;
-
+        UnpauseGame();
     }
 
+    public void UnpauseGame()
+    {
+        StartCoroutine(UnpauseGame(0.2f));
+    }
+    private IEnumerator UnpauseGame(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        IsGamePaused = false;
+
+    }
 
     public void RestartGame()
     {

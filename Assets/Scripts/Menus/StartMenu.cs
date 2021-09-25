@@ -5,7 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    private void Start()
+    {
+        Screen.SetResolution(540, 960, false);
+    }
     public void StartGame()
     {
         SceneManager.LoadScene(1);
