@@ -1299,8 +1299,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0013006371, y: -0.03390136}
-  m_Size: {x: 0.99740005, y: 0.10010998}
+  m_Offset: {x: 0.00000017596162, y: -0.02}
+  m_Size: {x: 0.9805697, y: 0.0823896}
   m_Direction: 1
 --- !u!212 &638871880
 SpriteRenderer:
@@ -2477,8 +2477,8 @@ MonoBehaviour:
   AvailableDebuffs:
   - {fileID: 2155571497161292077, guid: a24b2c7e60bd28647a2cc9bd562c66a1, type: 3}
   - {fileID: 7906306730481969030, guid: 6515a9b5289199f4b9302da78cd4374f, type: 3}
-  BuffChance: 20
-  DebuffChance: 15
+  BuffChance: 35
+  DebuffChance: 40
 --- !u!1 &1079462122
 GameObject:
   m_ObjectHideFlags: 0

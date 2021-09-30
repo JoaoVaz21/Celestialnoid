@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
                 }
         if (_levelCount % 5 == 0)
         {
-            BallsManager.Instance.InitialBallSpeed +=2;
+            BallsManager.Instance.InitialBallSpeed ++;
         }
     }
 
